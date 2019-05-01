@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import SampleType, Sample
+
+
+admin.site.site_header = 'Lab admin'
+
+admin.site.register(Sample)
+admin.site.register(SampleType)
