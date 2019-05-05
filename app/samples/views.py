@@ -2,8 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
+from .models import Sample
+
+
 def index(request):
-    return HttpResponse("Hello, world. You're at the index.")
+    samples = Sample.objects.all()
+    return render(request, 'samples/index.html', {"samples": samples})
 
 
 def other_page(request):
