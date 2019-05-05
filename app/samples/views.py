@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 
@@ -15,3 +15,8 @@ def other_page(request):
         'test': 'passing a value to the template'
     }
     return render(request, 'samples/other.html', context)
+
+
+def detail(request, sample_id):
+    sample = get_object_or_404(Sample, pk=sample_id)
+    return render(request, 'samples/detail.html', {'sample': sample})

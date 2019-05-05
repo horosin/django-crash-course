@@ -17,7 +17,7 @@
             {% for sample in samples %}
             <tr>
                 <td>{{sample.id}}</td>
-                <td>{{sample.name}}</td>
+                <td><a href="{% url 'detail' sample.id %}">{{sample.name}}</a></td>
                 <td>{{sample.type}}</td>
                 <td>{{sample.created_by}}</td>
             </tr>
