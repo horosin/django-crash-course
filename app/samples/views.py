@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 
-
-from .models import Sample
+from django.contrib.auth.models import User
+from .models import Sample, SampleType
 
 
 def index(request):
@@ -20,3 +20,22 @@ def other_page(request):
 def detail(request, sample_id):
     sample = get_object_or_404(Sample, pk=sample_id)
     return render(request, 'samples/detail.html', {'sample': sample})
+
+
+def create(request):
+    if request.method == "POST":
+        try:
+            name = request.POST['name']
+            desc = request.POST['description']
+            sample = Sample.objects.create(
+                name=name, description=desc,
+                created_by=User.objects.first(),
+                type=SampleType.objects.first()    
+            )
+            sample.save()
+            return redirect('index')
+        except (KeyError):
+            return render(request, 'samples/create.html',
+                          {'error': 'Please fill all of the fields'})
+
+    return render(request, 'samples/create.html', {})

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="pb-5">Create new sample</h1>
+    {% if error %}
+    <div class="p-3 mb-2 bg-danger text-white">{{error}}</div>
+    {% endif %}
+    <form action="{% url 'create' %}" method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="name">Sample name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter name" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Description</label>
+            <textarea class="form-control" name="description" placeholder="Description" required></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+</div>
+
+{% endblock content %}
