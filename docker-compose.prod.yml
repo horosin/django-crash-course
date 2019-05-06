@@ -11,9 +11,19 @@ services:
     build: app
     volumes:
       - ./app:/app
-    ports:
-      - "8000:8000"
     depends_on:
       - db
     command: ./start.sh
     restart: always
+
+  gateway:
+    image: nginx:alpine
+    ports:
+      - "${APP_PORT:-80}:80"
+      - "${SSL_PORT:-443}:443"
+    volumes:
+      - './volumes/logs:/var/log/nginx'
+      - './gateway/nginx/conf:/etc/nginx/conf.d'
+      - './gateway/nginx/ssl:/etc/ssl'
+    depends_on:
+      - web
