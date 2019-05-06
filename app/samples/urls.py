@@ -6,8 +6,7 @@ from . import views
 urlpatterns = [
     path('other/', views.other_page, name='other'),
     path('<int:pk>/', views.SampleDetailView.as_view(), name='detail'),
-    path('create/', views.create, name='create'),
-    path('create_alt', views.SampleAltCreateView.as_view(), name='create_alt'),
+    path('create/', views.SampleCreateView.as_view(), name='create'),
     path('about/', TemplateView.as_view(template_name="samples/about.html"), name='about'),
     path('about-class/', views.AboutView.as_view(), name='about_class'),
     path('', views.SampleListView.as_view(), name='index'),
