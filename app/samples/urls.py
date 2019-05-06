@@ -9,5 +9,6 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('create_alt', views.SampleAltCreateView.as_view(), name='create_alt'),
     path('about/', TemplateView.as_view(template_name="samples/about.html"), name='about'),
+    path('about-class/', views.AboutView.as_view(), name='about_class'),
     path('', views.index, name='index'),
 ]

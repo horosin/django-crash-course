@@ -5,6 +5,9 @@
 <div class="container">
     <h1>About</h1>
     <p>This is a laboratory management website, created to streamline some process.</p>
+    {% if dynamic_val %}
+    <p>{{dynamic_val}}</p>
+    {% endif %}
 </div>
 
 {% endblock content %}

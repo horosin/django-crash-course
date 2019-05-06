@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic import TemplateView
 
 from django.contrib.auth.models import User
 from .models import Sample, SampleType
@@ -63,3 +64,11 @@ class SampleAltCreateView(View):
 
     def get(self, request):
         return render(request, self.template_name, {})
+
+
+class AboutView(TemplateView):
+    template_name='samples/about.html'
+
+    def get_context_data(self):
+        context = {'dynamic_val': 'this info changes'}
+        return context
