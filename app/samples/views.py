@@ -6,16 +6,15 @@ from django.contrib.auth.models import User
 from .models import Sample, SampleType
 
 
-def index(request):
-    samples = Sample.objects.all()
-    return render(request, 'samples/index.html', {"samples": samples})
-
-
 def other_page(request):
     context = {
         'test': 'passing a value to the template'
     }
     return render(request, 'samples/other.html', context)
+
+
+class SampleListView(generic.ListView):
+    model = Sample
 
 
 class SampleDetailView(generic.DetailView):
