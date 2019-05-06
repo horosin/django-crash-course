@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from django.views import View
-from django.views.generic import TemplateView
+from django.views import View, generic
 
 from django.contrib.auth.models import User
 from .models import Sample, SampleType
@@ -19,9 +18,8 @@ def other_page(request):
     return render(request, 'samples/other.html', context)
 
 
-def detail(request, sample_id):
-    sample = get_object_or_404(Sample, pk=sample_id)
-    return render(request, 'samples/detail.html', {'sample': sample})
+class SampleDetailView(generic.DetailView):
+    model=Sample
 
 
 def create(request):
@@ -66,7 +64,7 @@ class SampleAltCreateView(View):
         return render(request, self.template_name, {})
 
 
-class AboutView(TemplateView):
+class AboutView(generic.TemplateView):
     template_name='samples/about.html'
 
     def get_context_data(self):
