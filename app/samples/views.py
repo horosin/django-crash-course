@@ -20,6 +20,14 @@ class SampleCreateView(generic.CreateView):
     success_url = reverse_lazy('index')
 
 
+class SampleUpdateView(generic.UpdateView):
+    model = Sample
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('detail', args=[self.kwargs['pk']])
+
+
 class SampleListView(generic.ListView):
     model = Sample
 

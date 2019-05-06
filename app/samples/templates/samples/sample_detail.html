@@ -4,6 +4,7 @@
 
 <div class="container">
     <h1 class="pb-5">Sample: {{object.name}}</h1>
+    <div><a href="{% url 'update' object.pk %}">Edit</a></div>
     <div>{{sample.description}}</div>
 </div>
 
