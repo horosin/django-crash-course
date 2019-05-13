@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{service.name}}-ingress"
+spec:
+  rules:
+  - host: "{{service.name}}.127.0.0.1.xip.io"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: "{{service.name}}"
+          servicePort: 80
+  tls:
+  - hosts:
+    - "{{service.name}}.127.0.0.1.xip.io"
+    secretName: "{{service.name}}-tls"
