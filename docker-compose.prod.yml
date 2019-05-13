@@ -23,7 +23,7 @@ services:
       - "${SSL_PORT:-443}:443"
     volumes:
       - './volumes/logs:/var/log/nginx'
-      - './gateway/nginx/conf:/etc/nginx/conf.d'
-      - './gateway/nginx/ssl:/etc/ssl'
+      - './ingress/conf:/etc/nginx/conf.d'
+      - './ingress/ssl:/etc/ssl'
     depends_on:
       - web
