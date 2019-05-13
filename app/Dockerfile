@@ -1,5 +1,6 @@
 FROM python:3
 ENV PYTHONUNBUFFERED 1
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /app
 WORKDIR /app
@@ -9,4 +10,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD ["./start.sh"]

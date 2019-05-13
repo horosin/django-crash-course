@@ -1,0 +1,45 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{service.name}}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{service.name}}
+      name: {{service.name}}
+    spec:
+      containers:
+        - name: {{service.name}}
+          image: "{{build.images['Dockerfile']}}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{service.targetPort}}
+          env:
+            - name: GUNICORN_WORKER_THREADS
+              value: "2"
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: "{{service.name}}-secrets"
+                  key: postgres.user
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "{{service.name}}-secrets"
+                  key: postgres.password
+            - name: PGHOST
+              value: postgres
+            - name: PGDATABASE
+              value: postgres
+          resources:
+            requests:
+              memory: "0.5G"
+              cpu: "0.1"
+            limits:
+              memory: {{service.memory}}
+              cpu: {{service.cpu}}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

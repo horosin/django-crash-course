@@ -1,7 +1,17 @@
 #!/bin/bash
 
+# Setup application
+python manage.py makemigrations
+python manage.py migrate
+python manage.py check
+python manage.py collectstatic --no-input
+
 # Start Gunicorn processes
-echo Starting Gunicorn.
-exec gunicorn lab.wsgi:application \
-    --bind 0.0.0.0:8000 \
-    --workers 2
+exec gunicorn \
+    --bind ":8000" \
+    --workers "$GUNICORN_WORKER_THREADS" \
+    --log-level "info" \
+    --timeout "3600" \
+    --error-logfile "-" \
+    --access-logfile "-" \
+    lab.wsgi:application

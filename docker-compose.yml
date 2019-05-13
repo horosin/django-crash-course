@@ -3,13 +3,14 @@ services:
   db:
     image: postgres:alpine
     volumes:
-      - ./volumes/pg:/var/lib/postgresql/data/
+      - "./volumes/pg:/var/lib/postgresql/data/"
     environment:
       POSTGRES_PASSWORD: postgres
   web:
     build: app
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./app:/app
+      - "./app:/app"
     ports:
       - "8000:8000"
     environment:
