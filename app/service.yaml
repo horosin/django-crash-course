@@ -1,7 +1,7 @@
 name: app
 
 port: 80
-targetPort: 8080
+targetPort: 8000
 
 memory: "0.5G"
 cpu: "0.5"
