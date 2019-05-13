@@ -1,0 +1,39 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{{service.name}}"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "{{service.name}}"
+      name: "{{service.name}}"
+    spec:
+      containers:
+      - name: "{{service.name}}"
+        imagePullPolicy: IfNotPresent
+        image: "{{service.name}}:{{service.version}}"
+        ports:
+        - containerPort: {{service.port}}
+        volumeMounts:
+        - name: "{{service.name}}-storage"
+          mountPath: /var/lib/postgresql
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: postgres.user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: postgres.password
+      volumes:
+      - name: "{{service.name}}-storage"
+        persistentVolumeClaim:
+          claimName: "{{service.name}}-storage-claim"
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
